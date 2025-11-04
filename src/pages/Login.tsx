@@ -1,0 +1,133 @@
+// pages/Login.tsx
+import React, { useState } from "react";
+import { Form, Button, Row, Col, Card, Container } from "react-bootstrap";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate, Link } from "react-router-dom";
+import { X } from "lucide-react";
+import TextField from "../components/TextField"; // ⬅ Import here
+
+interface FormData {
+  email: string;
+  password: string;
+}
+
+const Login: React.FC = () => {
+  const navigate = useNavigate();
+  const [form, setForm] = useState<FormData>({
+    email: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const validateForm = () => {
+    const newErrors: { [key: string]: string } = {};
+    if (!form.email.match(/^\S+@\S+\.\S+$/))
+      newErrors.email = "Invalid email format.";
+    if (
+      !form.password.match(/^[A-Za-z0-9!@#$%^&*]{4,}$/) ||
+      /\s|,|\./.test(form.password)
+    )
+      newErrors.password =
+        "Password must be min 4 characters and cannot contain spaces, commas, or dots.";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    try {
+      const response = await axios.post(
+        "http://134.209.159.74:3000/api/login",
+        form,
+        {
+          headers: { "Content-Type": "application/json" }
+        }
+      );
+      if (response.status === 200) {
+        toast.success("Login successful!");
+        console.log(response.data.user)
+        // store token if provided and set default Authorization header
+        if (response.data?.token) {
+          localStorage.setItem("token", response.data.token);
+           localStorage.setItem("userId", response.data.user.id);
+            localStorage.setItem("username", response.data.user.displayName);
+           localStorage.setItem("user", response.data.user);
+        // axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
+        }
+        // navigate to home/dashboard after successful login
+        setTimeout(() => navigate("/"), 2000);
+      } else {
+        toast.error("Login failed.");
+      }
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || "API error occurred.");
+    }
+  };
+
+  return (
+    <div className="login-page">
+      <div className="overlay">
+        <Container className="d-flex justify-content-center align-items-center min-vh-100">
+          <Card className="p-4 login-card" style={{ maxWidth: "400px" }}>
+            <X
+              size={20}
+              className="position-absolute top-0 end-0 m-3 cursor-pointer"
+              onClick={() => navigate("/")}
+              style={{ cursor: "pointer" }}
+            />
+            <h2 className="text-center mb-4">Login</h2>
+            <p className="text-center text-muted mb-4">
+              Please login to continue to your account
+            </p>
+            <Form onSubmit={handleSubmit}>
+              <Row>
+                <Col md={12}>
+                  <TextField
+                    label="Email"
+                    name="email"
+                    type="email"
+                    placeholder="Enter email address"
+                    value={form.email}
+                    onChange={handleChange}
+                    error={errors.email}
+                  />
+
+                  <TextField
+                    label="Password"
+                    name="password"
+                    type="password"
+                    placeholder="Enter password"
+                    value={form.password}
+                    onChange={handleChange}
+                    error={errors.password}
+                  />
+                </Col>
+              </Row>
+
+              <div className="text-center">
+                <Button type="submit" variant="primary" className="px-5">
+                  Login
+                </Button>
+              </div>
+            </Form>
+            <p className="text-center mt-3 text-muted">
+              Need an account? <Link to="/register">Create one</Link>
+            </p>
+          </Card>
+        </Container>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
