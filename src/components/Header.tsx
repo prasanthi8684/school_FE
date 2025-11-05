@@ -41,10 +41,11 @@ const Header: React.FC = () => {
           </Nav>
 
           <Nav className="ms-auto align-items-center gap-2">
+            Hello
             <span className="text-secondary">
               {(() => {
                 const username = sessionStorage.getItem("username");
-                return username ? `Hi, ${username}!` : "";
+                return username ? ` ${username}!` : "";
               })()}
             </span>
             <NavDropdown

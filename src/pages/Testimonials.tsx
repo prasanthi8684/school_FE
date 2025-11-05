@@ -5,12 +5,12 @@ const Testimonials: React.FC = () => {
   const testimonials = [
     {
       id: 1,
-      name: "Ramaganga Gollapalli",
+      name: "Ramaganga G",
       text: "Studying at Sarada Vidyalayam shaped who I am today. The teachers were more than educators — they were mentors who guided me through every challenge. I’ll always be proud to call myself an alumnus of this wonderful school.",
     },
     {
       id: 2,
-      name: "Renuka Ganga",
+      name: "Renuka J",
       text: "The friendships I built at Sarada Vidyalayam have lasted a lifetime. It’s amazing to see how the school continues to grow while keeping its strong values intact.",
     },
     {
@@ -23,30 +23,33 @@ const Testimonials: React.FC = () => {
   return (
     <section className="mb-5 px-3">
       <h4 className="mb-4">Testimonials</h4>
+
       <div
         className="d-flex overflow-auto"
         style={{ gap: "1rem", scrollSnapType: "x mandatory" }}
       >
-        {testimonials.map(({ id, name, text }) => (
-          <Card
-            key={id}
-            style={{
-              minWidth: "250px",
-              flex: "0 0 auto",
-              scrollSnapAlign: "start",
-              backgroundColor: "rgb(240, 244, 253)",
-              width: "100%",
-            }}
-            className="shadow-sm"
-          >
-            <Card.Body>
-              <Card.Text>"{text}"</Card.Text>
-              <Card.Subtitle className="text-muted mt-3">
-                - {name}
-              </Card.Subtitle>
-            </Card.Body>
-          </Card>
-        ))}
+        <Row>
+          {testimonials.map(({ id, name, text }) => (
+            <Col key={id} xs={12} md={4} className="mb-4">
+              <Card
+                key={id}
+                style={{
+                  minWidth: "250px",
+                  flex: "0 0 auto",
+                  scrollSnapAlign: "start",
+                }}
+                className="shadow-sm"
+              >
+                <Card.Body>
+                  <Card.Text>"{text}"</Card.Text>
+                  <Card.Subtitle className="text-muted mt-3">
+                    - {name}
+                  </Card.Subtitle>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
       </div>
     </section>
   );
