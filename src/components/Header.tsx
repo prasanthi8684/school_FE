@@ -4,6 +4,7 @@ import { Navbar, Nav, NavDropdown, Container, Image } from "react-bootstrap";
 import logo from "../assets/logo.png";
 
 const Header: React.FC = () => {
+  const userId = sessionStorage.getItem("userId");
   const logoUrl =
     "https://www.srikiran.org/wp-content/uploads/2024/06/Srikiran-Logo-Horizontal-1400x465.png";
   return (
@@ -16,7 +17,7 @@ const Header: React.FC = () => {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav" className="justify-content-between">
           <Nav className="me-auto">
-            <NavDropdown title="About" id="about-dropdown">
+            {/* <NavDropdown title="About" id="about-dropdown">
               <NavDropdown.Item as={Link} to="/">
                 History
               </NavDropdown.Item>
@@ -31,7 +32,7 @@ const Header: React.FC = () => {
               <NavDropdown.Item as={Link} to="/">
                 Past
               </NavDropdown.Item>
-            </NavDropdown>
+            </NavDropdown> */}
             <NavDropdown title="Members" id="members-dropdown">
               <NavDropdown.Item as={Link} to="/students">
                 Alumni List
@@ -42,8 +43,8 @@ const Header: React.FC = () => {
           <Nav className="ms-auto align-items-center gap-2">
             <span className="text-secondary">
               {(() => {
-                const username = localStorage.getItem("username");
-                return username ? ` ${username}!` : '';
+                const username = sessionStorage.getItem("username");
+                return username ? `Hi, ${username}!` : "";
               })()}
             </span>
             <NavDropdown
@@ -59,30 +60,35 @@ const Header: React.FC = () => {
               id="profile-dropdown"
               menuVariant="light"
             >
-              <NavDropdown.Item as={Link} to="/login">
-                Login
-              </NavDropdown.Item>
+              {userId ? (
+                <div></div>
+              ) : (
+                <NavDropdown.Item as={Link} to="/login">
+                  Login
+                </NavDropdown.Item>
+              )}
+
               <NavDropdown.Item as={Link} to="/profile">
                 Profile
               </NavDropdown.Item>
-                <NavDropdown.Item
+              <NavDropdown.Item
                 onClick={() => {
                   try {
-                  // remove stored auth/user info
-                  localStorage.removeItem("username");
-                  localStorage.removeItem("token");
-                  // If you store other keys, remove them or use localStorage.clear()
+                    // remove stored auth/user info
+                    sessionStorage.removeItem("username");
+                    sessionStorage.removeItem("token");
+                    // If you store other keys, remove them or use sessionStorage.clear()
                   } catch (err) {
-                  console.warn("Error clearing localStorage", err);
+                    console.warn("Error clearing sessionStorage", err);
                   }
                   // Redirect to login page
                   if (typeof window !== "undefined") {
-                  window.location.href = "/login";
+                    window.location.href = "/login";
                   }
                 }}
-                >
+              >
                 Logout
-                </NavDropdown.Item>
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

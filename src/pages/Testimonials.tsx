@@ -5,18 +5,18 @@ const Testimonials: React.FC = () => {
   const testimonials = [
     {
       id: 1,
-      name: "Alice Johnson",
-      text: "This alumni website is fantastic! It keeps me connected with old friends.",
+      name: "Ramaganga Gollapalli",
+      text: "Studying at Sarada Vidyalayam shaped who I am today. The teachers were more than educators — they were mentors who guided me through every challenge. I’ll always be proud to call myself an alumnus of this wonderful school.",
     },
     {
       id: 2,
-      name: "Bob Smith",
-      text: "Great platform to organize events and reunions easily.",
+      name: "Renuka Ganga",
+      text: "The friendships I built at Sarada Vidyalayam have lasted a lifetime. It’s amazing to see how the school continues to grow while keeping its strong values intact.",
     },
     {
       id: 3,
-      name: "Cathy Lee",
-      text: "Love seeing the latest news and photos. Very well designed!",
+      name: "Suresh B",
+      text: "My years at Sarada Vidyalayam were truly unforgettable. The teachers inspired me to dream big, and the school’s emphasis on values, discipline, and teamwork helped shape my career and character. I owe much of my success today to the strong foundation I received here.",
     },
   ];
 
@@ -30,12 +30,20 @@ const Testimonials: React.FC = () => {
         {testimonials.map(({ id, name, text }) => (
           <Card
             key={id}
-            style={{ minWidth: "250px", flex: "0 0 auto", scrollSnapAlign: "start" }}
+            style={{
+              minWidth: "250px",
+              flex: "0 0 auto",
+              scrollSnapAlign: "start",
+              backgroundColor: "rgb(240, 244, 253)",
+              width: "100%",
+            }}
             className="shadow-sm"
           >
             <Card.Body>
               <Card.Text>"{text}"</Card.Text>
-              <Card.Subtitle className="text-muted mt-3">- {name}</Card.Subtitle>
+              <Card.Subtitle className="text-muted mt-3">
+                - {name}
+              </Card.Subtitle>
             </Card.Body>
           </Card>
         ))}

@@ -2,14 +2,16 @@ import React from "react";
 import { Card, Row, Col } from "react-bootstrap";
 
 export const OldMemories: React.FC = () => {
-  const memoryImages = Array.from({ length: 21 }, (_, index) => require(`../images/${index + 1}.jpg`));
+  const memoryImages = Array.from({ length: 21 }, (_, index) =>
+    require(`../images/${index + 1}.jpg`)
+  );
 
   return (
     <section className="mb-5 px-3">
       <h4 className="mb-4">Our Memories</h4>
       <Row>
         {memoryImages.map((src, index) => (
-          <Col key={index} xs={6} sm={4} md={3} className="mb-4">
+          <Col key={index} xs={12} sm={4} md={3} className="mb-4">
             <Card>
               <Card.Img
                 variant="top"

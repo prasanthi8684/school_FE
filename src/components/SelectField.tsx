@@ -27,7 +27,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
       onChange={onChange}
       isInvalid={!!error}
     >
-      <option value="">Please select {label.toLowerCase()}</option>
+      <option value="">Please select</option>
       {options.map((opt) => (
         <option key={opt.value} value={opt.value}>
           {opt.label}

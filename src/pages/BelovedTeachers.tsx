@@ -1,20 +1,27 @@
 import React from "react";
 import { Card, Row, Col, Carousel } from "react-bootstrap";
-import director from '../images/director_sir.jpg'
-import rani from '../images/rani_teacher.jpg'
-
+import director from "../images/director_sir.jpg";
+import rani from "../images/rani_teacher.jpg";
+import d1 from "../images/20.jpg";
+import d2 from "../images/21.jpg";
+import d3 from "../images/16.jpg";
+import d4 from "../images/17.jpg";
 
 const BelovedTeachers: React.FC = () => {
-  const logoUrl = '../images/18.jpg'
   const teachers = [
-    { id: 1, name: "Dr. Chandrasekhar Sankurathri", subject: "Director", img: director },
+    {
+      id: 1,
+      name: "Dr. Chandrasekhar Sankurathri",
+      subject: "Director",
+      img: director,
+    },
     { id: 2, name: "Ms. Rani Teacher", subject: "Social", img: rani },
-    { id: 3, name: "Ms. Sangeeta Verma", subject: "English", img: "https://randomuser.me/api/portraits/women/50.jpg" },
-    { id: 4, name: "Mr. Amit Desai", subject: "History", img: "https://randomuser.me/api/portraits/men/60.jpg" },
-    { id: 5, name: "Mrs. Leela Iyer", subject: "Biology", img: "https://randomuser.me/api/portraits/women/65.jpg" },
-    { id: 6, name: "Mr. Vinod Mehra", subject: "Geography", img: "https://randomuser.me/api/portraits/men/62.jpg" },
-    { id: 7, name: "Ms. Priya Nair", subject: "Chemistry", img: "https://randomuser.me/api/portraits/women/70.jpg" },
-    { id: 8, name: "Mr. Suresh Patil", subject: "Physics", img: "https://randomuser.me/api/portraits/men/75.jpg" },
+    { id: 3, name: "Ms. Sangeeta Verma", subject: "English", img: d1 },
+    { id: 4, name: "Mr. Amit Desai", subject: "History", img: d2 },
+    { id: 5, name: "Mrs. Leela Iyer", subject: "Biology", img: d4 },
+    { id: 6, name: "Mr. Vinod Mehra", subject: "Geography", img: director },
+    { id: 7, name: "Ms. Priya Nair", subject: "Chemistry", img: rani },
+    { id: 8, name: "Mr. Suresh Patil", subject: "Physics", img: d3 },
   ];
 
   const teacherChunks = [];
@@ -32,7 +39,11 @@ const BelovedTeachers: React.FC = () => {
               {group.map(({ id, name, subject, img }) => (
                 <Col key={id} xs={12} sm={6} md={3} className="mb-4">
                   <Card className="text-center h-100">
-                    <Card.Img variant="top" src={img} style={{ height: "350px", objectFit: "cover" }} />
+                    <Card.Img
+                      variant="top"
+                      src={img}
+                      style={{ height: "350px", objectFit: "cover" }}
+                    />
                     <Card.Body>
                       <Card.Title>{name}</Card.Title>
                       <Card.Text>{subject}</Card.Text>

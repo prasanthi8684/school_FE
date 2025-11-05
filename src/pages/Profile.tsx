@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import { Form, Button, Row, Col, Card, Container } from "react-bootstrap";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, Link } from "react-router-dom";
 import { X } from "lucide-react";
 
 interface FormData {
   displayName: string;
-  fullName: string;
+  married: string;
   contactNumber: string;
-  email: string;
-  aadharNumber: string;
   workingField: string;
   village: string;
   fullAddress: string;
@@ -21,10 +19,8 @@ const Profile: React.FC = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState<FormData>({
     displayName: "",
-    fullName: "",
-    contactNumber: "+91",
-    email: "",
-    aadharNumber: "",
+    married: "",
+    contactNumber: "",
     workingField: "",
     village: "",
     fullAddress: "",
@@ -33,12 +29,11 @@ const Profile: React.FC = () => {
   React.useEffect(() => {
     const fetchProfile = async () => {
       try {
-      // read user id from sessionStorage (supports either a raw id stored under "userId"
-      // or a JSON "user" object that contains an id/userId field)
-      console.log("Fetching profile...");
-      console.log(localStorage.getItem("userId"))
-      const userId = localStorage.getItem("userId");
-     
+        // read user id from sessionStorage (supports either a raw id stored under "userId"
+        // or a JSON "user" object that contains an id/userId field)
+        console.log("Fetching profile...");
+        console.log(sessionStorage.getItem("userId"));
+        const userId = sessionStorage.getItem("userId");
 
         if (!userId) {
           toast.error("No user found in session. Please login.");
@@ -46,23 +41,21 @@ const Profile: React.FC = () => {
           return;
         }
 
-        const { data } = await axios.get(`http://134.209.159.74:3000/api/profile/${encodeURIComponent(userId)}`);
+        const { data } = await axios.get(
+          `http://134.209.159.74:3000/api/profile/${encodeURIComponent(userId)}`
+        );
         setForm({
           displayName: data?.user?.displayName ?? "",
-          fullName: data?.user?.fullName ?? "",
-          contactNumber: data?.user?.contactNumber
-            ? data.user.contactNumber.startsWith("+91")
-              ? data.user.contactNumber
-              : `+91${String(data.user.contactNumber).replace(/^0+/, "")}`
-            : "+91",
-          email: data?.user?.email ?? "",
-          aadharNumber: data?.user?.aadharNumber ?? "",
+          married: data?.user?.married ?? "",
+          contactNumber: data?.user?.contactNumber ?? "",
           workingField: data?.user?.workingField ?? "",
           village: data?.user?.village ?? "",
           fullAddress: data?.user?.fullAddress ?? "",
         });
       } catch (error: any) {
-        toast.error(error?.response?.data?.user?.message || "Failed to load profile.");
+        toast.error(
+          error?.response?.data?.user?.message || "Failed to load profile."
+        );
       }
     };
 
@@ -82,20 +75,16 @@ const Profile: React.FC = () => {
 
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
-    if (!form.fullName.trim()) newErrors.fullName = "Full Name is required.";
     if (!form.displayName.trim())
-      newErrors.displayName = "Display Name is required.";
-    if (!form.contactNumber.match(/^\+91\d{10}$/))
-      newErrors.contactNumber = "Enter valid 10-digit contact number with +91.";
-    if (!form.aadharNumber.match(/^\d{12}$/))
-      newErrors.aadharNumber = "Enter valid 12-digit Aadhar number.";
+      newErrors.displayName = "Display Name is required";
+    if (!form.contactNumber.match(/^\d{10}$/))
+      newErrors.contactNumber = "Invalid contact number";
     if (!form.fullAddress.trim())
-      newErrors.fullAddress = "Full address is required.";
-    if (!form.email.match(/^\S+@\S+\.\S+$/))
-      newErrors.email = "Invalid email format.";
-    if (!form.workingField)
-      newErrors.workingField = "Please select a working field.";
-    if (!form.village) newErrors.village = "Please select a village.";
+      newErrors.fullAddress = "Full address is required";
+    if (!form.workingField) newErrors.workingField = "Please select";
+    if (!form.married) newErrors.married = "Please select";
+    if (!form.village) newErrors.village = "Please select";
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -105,7 +94,7 @@ const Profile: React.FC = () => {
     if (!validateForm()) return;
 
     try {
-      const rawUser = localStorage.getItem("userId");
+      const rawUser = sessionStorage.getItem("userId");
       let userId: string | null = rawUser;
 
       // support either a raw id or a JSON object containing id/userId
@@ -113,7 +102,7 @@ const Profile: React.FC = () => {
         if (rawUser) {
           const parsed = JSON.parse(rawUser);
           if (parsed && (parsed.id || parsed.userId)) {
-        userId = parsed.id ?? parsed.userId;
+            userId = parsed.id ?? parsed.userId;
           }
         }
       } catch {
@@ -159,7 +148,7 @@ const Profile: React.FC = () => {
                     <Form.Label>Display Name</Form.Label>
                     <Form.Control
                       name="displayName"
-                      placeholder="Enter short name"
+                      placeholder="Enter name"
                       value={form.displayName}
                       onChange={handleChange}
                       isInvalid={!!errors.displayName}
@@ -169,24 +158,6 @@ const Profile: React.FC = () => {
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
-                <Col md={6}>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Full Name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="fullName"
-                      placeholder="Enter name as per aadhar"
-                      value={form.fullName}
-                      onChange={handleChange}
-                      isInvalid={!!errors.fullName}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.fullName}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row>
                 <Col md={6}>
                   <Form.Group className="mb-3">
                     <Form.Label>Contact Number</Form.Label>
@@ -203,38 +174,25 @@ const Profile: React.FC = () => {
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
-                <Col md={6}>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                      type="email"
-                      name="email"
-                      placeholder="Enter email address"
-                      value={form.email}
-                      onChange={handleChange}
-                      isInvalid={!!errors.email}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      {errors.email}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
+                <Col md={6}></Col>
               </Row>
 
               <Row>
                 <Col md={6}>
                   <Form.Group className="mb-3">
-                    <Form.Label>Aadhar Number</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="aadharNumber"
-                      placeholder="Enter aadhar number"
-                      value={form.aadharNumber}
+                    <Form.Label>Married</Form.Label>
+                    <Form.Select
+                      name="married"
+                      value={form.married}
                       onChange={handleChange}
-                      isInvalid={!!errors.aadharNumber}
-                    />
+                      isInvalid={!!errors.married}
+                    >
+                      <option value="">Please select</option>
+                      <option value="studying">Yes</option>
+                      <option value="studying">No</option>
+                    </Form.Select>
                     <Form.Control.Feedback type="invalid">
-                      {errors.aadharNumber}
+                      {errors.married}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
@@ -247,15 +205,17 @@ const Profile: React.FC = () => {
                       onChange={handleChange}
                       isInvalid={!!errors.workingField}
                     >
-                      <option value="">Please select working field</option>
+                      <option value="">Please select</option>
+                      <option value="studying">Business</option>
                       <option value="studying">Studying</option>
                       <option value="jobSearch">Job Search</option>
                       <option value="farming">Farming</option>
                       <option value="privateJob">Private Job</option>
                       <option value="govtJob">Govt Job</option>
+                      <option value="govtJob">Others</option>
                     </Form.Select>
                     <Form.Control.Feedback type="invalid">
-                      {errors.village}
+                      {errors.workingField}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Col>
@@ -270,10 +230,13 @@ const Profile: React.FC = () => {
                       onChange={handleChange}
                       isInvalid={!!errors.village}
                     >
-                      <option value="">Please select village</option>
-                      <option value="Village A">Village A</option>
-                      <option value="Village B">Village B</option>
-                      <option value="Village C">Village C</option>
+                      <option value="">Please select</option>
+                      <option value="Bharma Colony">Bharma Colony</option>
+                      <option value="Kakinada">Kakinada</option>
+                      <option value="Kotturu">Kotturu</option>
+                      <option value="Penumarti">Penumarti</option>
+                      <option value="Rayudupalem">Rayudupalem</option>
+                      <option value="Thammavaram">Thammavaram</option>
                     </Form.Select>
                     <Form.Control.Feedback type="invalid">
                       {errors.village}
