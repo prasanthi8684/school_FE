@@ -1,21 +1,24 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
+import banner1 from "../images/10.jpg";
+import banner2 from "../images/banner2.jpg";
+import banner3 from "../images/3.jpg";
 
 const Banners: React.FC = () => {
   const banners = [
     {
       id: 1,
-      img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80",
+      img: banner1,
       alt: "Banner 1",
     },
     {
       id: 2,
-      img: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1600&q=80",
+      img: banner2,
       alt: "Banner 2",
     },
     {
       id: 3,
-      img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=80",
+      img: banner3,
       alt: "Banner 3",
     },
   ];

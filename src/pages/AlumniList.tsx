@@ -24,9 +24,9 @@ interface Alumni {
 const dummyApi = async (): Promise<Alumni[]> => {
   try {
     const response = await axios.get("http://134.209.159.74:3000/api/users");
-    console.log("Alumni API response:", response);
+    //console.log("Alumni API response:", response);
     const users = response.data.users;
-console.log("Alumni API response:", users);
+    console.log("Alumni API response:", users);
     if (!Array.isArray(users)) return [];
 
     // Normalize API response into Alumni[] shape
@@ -87,6 +87,8 @@ export const AlumniList: React.FC = () => {
     (currentPage - 1) * rowsPerPage,
     currentPage * rowsPerPage
   );
+
+  console.log("full details", JSON.stringify(paginatedData));
 
   const totalPages = Math.ceil(filteredData.length / rowsPerPage);
 

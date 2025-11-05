@@ -35,8 +35,7 @@ const Login: React.FC = () => {
       !form.password.match(/^[A-Za-z0-9!@#$%^&*]{4,}$/) ||
       /\s|,|\./.test(form.password)
     )
-      newErrors.password =
-        "Password must be min 4 characters and cannot contain spaces, commas, or dots.";
+      newErrors.password = "Password must be min 4 characters.";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -50,19 +49,19 @@ const Login: React.FC = () => {
         "http://134.209.159.74:3000/api/login",
         form,
         {
-          headers: { "Content-Type": "application/json" }
+          headers: { "Content-Type": "application/json" },
         }
       );
       if (response.status === 200) {
         toast.success("Login successful!");
-        console.log(response.data.user)
+        console.log(response.data.user);
         // store token if provided and set default Authorization header
         if (response.data?.token) {
-          localStorage.setItem("token", response.data.token);
-           localStorage.setItem("userId", response.data.user.id);
-            localStorage.setItem("username", response.data.user.displayName);
-           localStorage.setItem("user", response.data.user);
-        // axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
+          sessionStorage.setItem("token", response.data.token);
+          sessionStorage.setItem("userId", response.data.user.id);
+          sessionStorage.setItem("username", response.data.user.displayName);
+          sessionStorage.setItem("user", response.data.user);
+          // axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
         }
         // navigate to home/dashboard after successful login
         setTimeout(() => navigate("/"), 2000);

@@ -9,12 +9,10 @@ import { X } from "lucide-react";
 
 interface FormData {
   fullName: string;
-  displayName: string;
   contactNumber: string;
   email: string;
   password: string;
   confirmPassword: string;
-  aadhar: string;
   address: string;
   gender: string;
   passoutYear: string;
@@ -26,12 +24,10 @@ const Register: React.FC = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState<FormData>({
     fullName: "",
-    displayName: "",
     contactNumber: "",
     email: "",
     password: "",
     confirmPassword: "",
-    aadhar: "",
     address: "",
     gender: "",
     passoutYear: "",
@@ -53,7 +49,6 @@ const Register: React.FC = () => {
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
     if (!form.fullName) newErrors.fullName = "Full name is required.";
-    if (!form.displayName) newErrors.displayName = "Display name is required.";
     if (!form.contactNumber.match(/^\d{10}$/))
       newErrors.contactNumber = "Invalid contact number.";
     if (!form.email.match(/^\S+@\S+\.\S+$/))
@@ -66,8 +61,6 @@ const Register: React.FC = () => {
     if (form.password !== form.confirmPassword)
       newErrors.confirmPassword =
         "Confirm password should be same as passwords.";
-    if (!form.aadhar.match(/^\d{12}$/))
-      newErrors.aadhar = "Invalid Aadhar number.";
     if (!form.address) newErrors.address = "Address is required.";
     if (!form.gender) newErrors.gender = "Gender is required.";
     if (!form.passoutYear) newErrors.passoutYear = "Passout year is required.";
@@ -86,10 +79,10 @@ const Register: React.FC = () => {
     try {
       const response = await axios.post(
         "http://134.209.159.74:3000/api/signup",
-        form, 
+        form,
         { headers: { "Content-Type": "application/json" } }
       );
-      if (response.status == 201) {
+      if (response.status === 201) {
         toast.success("Registration successful!");
         setTimeout(() => navigate("/login"), 2000);
       } else {
@@ -118,24 +111,12 @@ const Register: React.FC = () => {
                   <TextField
                     label="Full Name"
                     name="fullName"
-                    placeholder="Enter name as per Aadhar"
+                    placeholder="Enter name"
                     value={form.fullName}
                     onChange={handleChange}
                     error={errors.fullName}
                   />
                 </Col>
-                <Col md={6}>
-                  <TextField
-                    label="Display Name"
-                    name="displayName"
-                    placeholder="Enter display name"
-                    value={form.displayName}
-                    onChange={handleChange}
-                    error={errors.displayName}
-                  />
-                </Col>
-              </Row>
-              <Row>
                 <Col md={6}>
                   <TextField
                     label="Contact Number"
@@ -144,6 +125,21 @@ const Register: React.FC = () => {
                     value={form.contactNumber}
                     onChange={handleChange}
                     error={errors.contactNumber}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col md={6}>
+                  <SelectField
+                    label="Gender"
+                    name="gender"
+                    value={form.gender}
+                    onChange={handleChange}
+                    error={errors.gender}
+                    options={[
+                      { label: "Male", value: "Male" },
+                      { label: "Female", value: "Female" },
+                    ]}
                   />
                 </Col>
                 <Col md={6}>
@@ -185,19 +181,6 @@ const Register: React.FC = () => {
               <Row>
                 <Col md={6}>
                   <SelectField
-                    label="Gender"
-                    name="gender"
-                    value={form.gender}
-                    onChange={handleChange}
-                    error={errors.gender}
-                    options={[
-                      { label: "Male", value: "Male" },
-                      { label: "Female", value: "Female" },
-                    ]}
-                  />
-                </Col>
-                <Col md={6}>
-                  <SelectField
                     label="Passout Year"
                     name="passoutYear"
                     value={form.passoutYear}
@@ -207,11 +190,30 @@ const Register: React.FC = () => {
                       { label: "2020", value: "2020" },
                       { label: "2019", value: "2019" },
                       { label: "2018", value: "2018" },
+                      { label: "2017", value: "2017" },
+                      { label: "2016", value: "2016" },
+                      { label: "2015", value: "2015" },
+                      { label: "2014", value: "2014" },
+                      { label: "2013", value: "2013" },
+                      { label: "2012", value: "2012" },
+                      { label: "2011", value: "2011" },
+                      { label: "2010", value: "2010" },
+                      { label: "2009", value: "2009" },
+                      { label: "2008", value: "2008" },
+                      { label: "2007", value: "2007" },
+                      { label: "2006", value: "2006" },
+                      { label: "2005", value: "2005" },
+                      { label: "2004", value: "2004" },
+                      { label: "2003", value: "2003" },
+                      { label: "2002", value: "2002" },
+                      { label: "2001", value: "2001" },
+                      { label: "2000", value: "2000" },
+                      { label: "1999", value: "1999" },
+                      { label: "1998", value: "1998" },
+                      { label: "1997", value: "1997" },
                     ]}
                   />
                 </Col>
-              </Row>
-              <Row>
                 <Col md={6}>
                   <SelectField
                     label="Working Field"
@@ -220,21 +222,15 @@ const Register: React.FC = () => {
                     onChange={handleChange}
                     error={errors.workingField}
                     options={[
-                      { label: "Studying", value: "Studying" },
+                      { label: "Business", value: "Business" },
+                      { label: "Govt Job", value: "Govt Job" },
                       { label: "Job Search", value: "Job Search" },
-                      { label: "Working", value: "Working" },
-                      { label: "Other", value: "Other" },
+                      { label: "Farming", value: "Farming" },
+                      { label: "Own work", value: "Own work" },
+                      { label: "Private Job", value: "Private Job" },
+                      { label: "Studying", value: "Studying" },
+                      { label: "Others", value: "Others" },
                     ]}
-                  />
-                </Col>
-                <Col md={6}>
-                  <TextField
-                    label="Aadhar Number"
-                    name="aadhar"
-                    placeholder="Enter 12-digit Aadhar"
-                    value={form.aadhar}
-                    onChange={handleChange}
-                    error={errors.aadhar}
                   />
                 </Col>
               </Row>
@@ -247,9 +243,12 @@ const Register: React.FC = () => {
                     onChange={handleChange}
                     error={errors.village}
                     options={[
-                      { label: "Village A", value: "A" },
-                      { label: "Village B", value: "B" },
-                      { label: "Village C", value: "C" },
+                      { label: "Bharma Colony", value: "Bharma Colony" },
+                      { label: "Kakinada", value: "Kakinada" },
+                      { label: "Kotturu", value: "Kotturu" },
+                      { label: "Penumarti", value: "Penumarti" },
+                      { label: "Rayudupalem", value: "Rayudupalem" },
+                      { label: "Thammavaram", value: "Thammavaram" },
                     ]}
                   />
                 </Col>
