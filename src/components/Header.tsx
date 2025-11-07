@@ -5,6 +5,8 @@ import logo from "../assets/logo.png";
 
 const Header: React.FC = () => {
   const userId = sessionStorage.getItem("userId");
+  const username = sessionStorage.getItem("username");
+
   const logoUrl =
     "https://www.srikiran.org/wp-content/uploads/2024/06/Srikiran-Logo-Horizontal-1400x465.png";
   return (
@@ -41,11 +43,11 @@ const Header: React.FC = () => {
           </Nav>
 
           <Nav className="ms-auto align-items-center gap-2">
-            Hello
+            {userId ? <span>Hello</span> : <span>Hi</span>}
             <span className="text-secondary">
               {(() => {
                 const username = sessionStorage.getItem("username");
-                return username ? ` ${username}!` : "";
+                return username ? ` ${username}` : "";
               })()}
             </span>
             <NavDropdown
@@ -78,6 +80,7 @@ const Header: React.FC = () => {
                     // remove stored auth/user info
                     sessionStorage.removeItem("username");
                     sessionStorage.removeItem("token");
+                    sessionStorage.removeItem("userId");
                     // If you store other keys, remove them or use sessionStorage.clear()
                   } catch (err) {
                     console.warn("Error clearing sessionStorage", err);

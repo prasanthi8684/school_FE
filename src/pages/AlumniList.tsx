@@ -5,7 +5,6 @@ import {
   Row,
   Col,
   Pagination,
-  Button,
   InputGroup,
   FormControl,
 } from "react-bootstrap";
@@ -112,9 +111,31 @@ export const AlumniList: React.FC = () => {
             value={filters.passoutYear}
           >
             <option value="">All Years</option>
-            {Array.from({ length: 10 }, (_, i) => (
-              <option key={i}>{`20${10 + i}`}</option>
-            ))}
+            <option>2023</option>
+            <option>2022</option>
+            <option>2021</option>
+            <option>2020</option>
+            <option>2019</option>
+            <option>2018</option>
+            <option>2017</option>
+            <option>2016</option>
+            <option>2015</option>
+            <option>2014</option>
+            <option>2013</option>
+            <option>2012</option>
+            <option>2011</option>
+            <option>2010</option>
+            <option>2009</option>
+            <option>2008</option>
+            <option>2007</option>
+            <option>2006</option>
+            <option>2005</option>
+            <option>2004</option>
+            <option>2003</option>
+            <option>2002</option>
+            <option>2001</option>
+            <option>2000</option>
+            <option>1999</option>
           </Form.Select>
         </Col>
         <Col md={3}>
@@ -124,9 +145,12 @@ export const AlumniList: React.FC = () => {
             value={filters.village}
           >
             <option value="">All Villages</option>
-            <option>Village A</option>
-            <option>Village B</option>
-            <option>Village C</option>
+            <option>Bharma Colony</option>
+            <option>Kakinada</option>
+            <option>Kotturu C</option>
+            <option>Penumarti</option>
+            <option>Rayudupalem</option>
+            <option>Thammavaram</option>
           </Form.Select>
         </Col>
         <Col md={3}>
@@ -149,7 +173,6 @@ export const AlumniList: React.FC = () => {
             <th>Email</th>
             <th>Passout Year</th>
             <th>Village</th>
-            <th>Address</th>
           </tr>
         </thead>
         <tbody>
@@ -160,7 +183,6 @@ export const AlumniList: React.FC = () => {
               <td>{item.email}</td>
               <td>{item.passoutYear}</td>
               <td>{item.village}</td>
-              <td>{item.address}</td>
             </tr>
           ))}
         </tbody>

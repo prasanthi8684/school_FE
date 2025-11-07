@@ -59,8 +59,8 @@ const Login: React.FC = () => {
         if (response.data?.token) {
           sessionStorage.setItem("token", response.data.token);
           sessionStorage.setItem("userId", response.data.user.id);
-          sessionStorage.setItem("username", response.data.user.displayName);
-          sessionStorage.setItem("user", response.data.user);
+          sessionStorage.setItem("username", response.data.user.fullName);
+          sessionStorage.setItem("user", JSON.stringify(response.data.user));
           // axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
         }
         // navigate to home/dashboard after successful login
