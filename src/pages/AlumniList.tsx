@@ -147,7 +147,7 @@ export const AlumniList: React.FC = () => {
             <option value="">All Villages</option>
             <option>Bharma Colony</option>
             <option>Kakinada</option>
-            <option>Kotturu C</option>
+            <option>Kotturu</option>
             <option>Penumarti</option>
             <option>Rayudupalem</option>
             <option>Thammavaram</option>
