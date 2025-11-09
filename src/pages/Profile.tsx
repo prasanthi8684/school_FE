@@ -44,8 +44,9 @@ const Profile: React.FC = () => {
         const { data } = await axios.get(
           `http://134.209.159.74:3000/api/profile/${encodeURIComponent(userId)}`
         );
+        console.log("Profile data:", data.user.workingField);
         setForm({
-          displayName: data?.user?.displayName ?? "",
+          displayName: data?.user?.fullName ?? "",
           married: data?.user?.married ?? "",
           contactNumber: data?.user?.contactNumber ?? "",
           workingField: data?.user?.workingField ?? "",
@@ -205,14 +206,15 @@ const Profile: React.FC = () => {
                       onChange={handleChange}
                       isInvalid={!!errors.workingField}
                     >
-                      <option value="">Please select</option>
-                      <option value="studying">Business</option>
-                      <option value="studying">Studying</option>
-                      <option value="jobSearch">Job Search</option>
-                      <option value="farming">Farming</option>
-                      <option value="privateJob">Private Job</option>
-                      <option value="govtJob">Govt Job</option>
-                      <option value="govtJob">Others</option>
+                     <option value="">Please select working field</option>
+                      <option value="Business">Business</option>
+                      <option value="Govt Job">Govt Job</option>
+                      <option value="Job Search">Job Search</option>
+                      <option value="Farming">Farming</option>
+                      <option value="Own work">Own work</option>
+                      <option value="Private Job">Private Job</option>
+                       <option value="Studying">Studying</option>
+                       <option value="Others">Others</option>
                     </Form.Select>
                     <Form.Control.Feedback type="invalid">
                       {errors.workingField}
