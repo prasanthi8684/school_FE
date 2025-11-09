@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import ForgotPassword from "../pages/ForgotPassword";
 import Profile from "../pages/Profile";
 import AlumniList from "../pages/AlumniList";
 import Test from "../pages/Test";
@@ -14,6 +15,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/home" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/forgotpassword" element={<ForgotPassword />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/students" element={<AlumniList />} />
     </Routes>
