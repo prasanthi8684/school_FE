@@ -3,6 +3,7 @@ import { Carousel } from "react-bootstrap";
 import banner1 from "../images/10.jpg";
 import banner2 from "../images/banner2.jpg";
 import banner3 from "../images/3.jpg";
+import banner4 from "../images/banner3.jpg";
 
 const Banners: React.FC = () => {
   const banners = [
@@ -20,6 +21,11 @@ const Banners: React.FC = () => {
       id: 3,
       img: banner3,
       alt: "Banner 3",
+    },
+    {
+      id: 4,
+      img: banner4,
+      alt: "Banner 4",
     },
   ];
 
