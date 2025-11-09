@@ -2,10 +2,12 @@ import React from "react";
 import { Card, Row, Col, Carousel } from "react-bootstrap";
 import director from "../images/director_sir.jpg";
 import rani from "../images/rani_teacher.jpg";
-import d1 from "../images/20.jpg";
-import d2 from "../images/21.jpg";
-import d3 from "../images/16.jpg";
-import d4 from "../images/17.jpg";
+import d1 from "../images/39.jpg";
+import d2 from "../images/54.jpg";
+import d3 from "../images/40.jpg";
+import d4 from "../images/65.jpg";
+import d5 from "../images/43.jpg";
+import d6 from "../images/42.jpg";
 
 const BelovedTeachers: React.FC = () => {
   const teachers = [
@@ -15,13 +17,39 @@ const BelovedTeachers: React.FC = () => {
       subject: "Director",
       img: director,
     },
-    { id: 2, name: "Ms. Rani Teacher", subject: "Social", img: rani },
-    { id: 3, name: "Ms. Sangeeta Verma", subject: "English", img: d1 },
-    { id: 4, name: "Mr. Amit Desai", subject: "History", img: d2 },
-    { id: 5, name: "Mrs. Leela Iyer", subject: "Biology", img: d4 },
-    { id: 6, name: "Mr. Vinod Mehra", subject: "Geography", img: director },
-    { id: 7, name: "Ms. Priya Nair", subject: "Chemistry", img: rani },
-    { id: 8, name: "Mr. Suresh Patil", subject: "Physics", img: d3 },
+    { id: 2, name: "Our Teachers", subject: "Sarada Vidyalayam", img: d6 },
+    {
+      id: 3,
+      name: "Our Teachers",
+      subject: "Sarada Vidyalayam",
+      img: d1,
+    },
+    {
+      id: 4,
+      name: "Our Teachers",
+      subject: "Sarada Vidyalayam",
+      img: d2,
+    },
+    {
+      id: 5,
+      name: "Our Teachers",
+      subject: "Sarada Vidyalayam",
+      img: d4,
+    },
+    {
+      id: 6,
+      name: "Our Teachers",
+      subject: "Sarada Vidyalayam",
+      img: d3,
+    },
+    { id: 7, name: "Ms. Rani Teacher", subject: "Social", img: rani },
+
+    {
+      id: 8,
+      name: "Our Teachers",
+      subject: "Sarada Vidyalayam",
+      img: d5,
+    },
   ];
 
   const teacherChunks = [];

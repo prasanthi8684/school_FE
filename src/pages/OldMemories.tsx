@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Row, Col } from "react-bootstrap";
 
 export const OldMemories: React.FC = () => {
-  const memoryImages = Array.from({ length: 27 }, (_, index) =>
+  const memoryImages = Array.from({ length: 70 }, (_, index) =>
     require(`../images/${index + 1}.jpg`)
   );
 
