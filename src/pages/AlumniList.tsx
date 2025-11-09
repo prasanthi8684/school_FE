@@ -23,7 +23,7 @@ interface Alumni {
 
 const dummyApi = async (): Promise<Alumni[]> => {
   try {
-    const response = await axios.get("http://localhost:3000/api/users");
+    const response = await axios.get("http://134.209.159.74:3000/api/users");
     //console.log("Alumni API response:", response);
     const users = response.data.users;
     console.log("Alumni API response:", users);

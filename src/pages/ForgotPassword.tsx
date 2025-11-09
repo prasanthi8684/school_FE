@@ -56,7 +56,7 @@ const Login: React.FC = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/reset-password",
+        "http://134.209.159.74:3000/api/reset-password",
         {
           email: form.email,
           password: form.password,
