@@ -11,6 +11,7 @@ import TextField from "../components/TextField"; // ⬅ Import here
 interface FormData {
   email: string;
   password: string;
+  confirmPassword: string;
 }
 
 const Login: React.FC = () => {
@@ -18,6 +19,7 @@ const Login: React.FC = () => {
   const [form, setForm] = useState<FormData>({
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -36,6 +38,12 @@ const Login: React.FC = () => {
       /\s|,|\./.test(form.password)
     )
       newErrors.password = "Password must be min 4 characters.";
+    if (!form.confirmPassword || form.confirmPassword.length < 4)
+      newErrors.confirmPassword = "Confirm password must be min 4 characters.";
+    if (form.password !== form.confirmPassword)
+      newErrors.confirmPassword =
+        "Confirm password should be same as passwords.";
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -44,33 +52,32 @@ const Login: React.FC = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    try {
-      const response = await axios.post(
-        "http://134.209.159.74:3000/api/login",
-        form,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      if (response.status === 200) {
-        toast.success("Login successful!");
-        console.log(response.data.user);
-        // store token if provided and set default Authorization header
-        if (response.data?.token) {
-          sessionStorage.setItem("token", response.data.token);
-          sessionStorage.setItem("userId", response.data.user.id);
-          sessionStorage.setItem("username", response.data.user.fullName);
-          sessionStorage.setItem("user", JSON.stringify(response.data.user));
-          // axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
-        }
-        // navigate to home/dashboard after successful login
-        setTimeout(() => navigate("/"), 2000);
-      } else {
-        toast.error("Login failed.");
-      }
-    } catch (error: any) {
-      toast.error(error?.response?.data?.message || "API error occurred.");
-    }
+    alert("form validated");
+
+    // try {
+    //   const response = await axios.post(
+    //     "http://134.209.159.74:3000/api/login",
+    //     form,
+    //     {
+    //       headers: { "Content-Type": "application/json" },
+    //     }
+    //   );
+    //   if (response.status === 200) {
+    //     toast.success("Login successful!");
+    //     console.log(response.data.user);
+    //     if (response.data?.token) {
+    //       sessionStorage.setItem("token", response.data.token);
+    //       sessionStorage.setItem("userId", response.data.user.id);
+    //       sessionStorage.setItem("username", response.data.user.fullName);
+    //       sessionStorage.setItem("user", JSON.stringify(response.data.user));
+    //     }
+    //     setTimeout(() => navigate("/"), 2000);
+    //   } else {
+    //     toast.error("Login failed.");
+    //   }
+    // } catch (error: any) {
+    //   toast.error(error?.response?.data?.message || "API error occurred.");
+    // }
   };
 
   return (
@@ -84,9 +91,9 @@ const Login: React.FC = () => {
               onClick={() => navigate("/")}
               style={{ cursor: "pointer" }}
             />
-            <h2 className="text-center mb-4">Login</h2>
+            <h2 className="text-center mb-4">Forgot Password</h2>
             <p className="text-center text-muted mb-4">
-              Please login to continue to your account
+              Please update your new password
             </p>
             <Form onSubmit={handleSubmit}>
               <Row>
@@ -110,6 +117,15 @@ const Login: React.FC = () => {
                     onChange={handleChange}
                     error={errors.password}
                   />
+                  <TextField
+                    label="Confirm Password"
+                    name="confirmPassword"
+                    type="password"
+                    placeholder="Confirm password"
+                    value={form.confirmPassword}
+                    onChange={handleChange}
+                    error={errors.confirmPassword}
+                  />
                 </Col>
               </Row>
 
@@ -119,13 +135,6 @@ const Login: React.FC = () => {
                 </Button>
               </div>
             </Form>
-            <p className="text-center mt-3 text-muted">
-              Forgot password? <Link to="/forgotpassword">Click here</Link>
-            </p>
-            <div className="text-center">
-              {" "}
-              First time? <Link to="/register">Register here</Link>
-            </div>
           </Card>
         </Container>
       </div>
