@@ -16,12 +16,37 @@ const BelovedTeachers: React.FC = () => {
       img: director,
     },
     { id: 2, name: "Ms. Rani Teacher", subject: "Social", img: rani },
-    { id: 3, name: "Ms. Sangeeta Verma", subject: "English", img: d1 },
-    { id: 4, name: "Mr. Amit Desai", subject: "History", img: d2 },
-    { id: 5, name: "Mrs. Leela Iyer", subject: "Biology", img: d4 },
-    { id: 6, name: "Mr. Vinod Mehra", subject: "Geography", img: director },
-    { id: 7, name: "Ms. Priya Nair", subject: "Chemistry", img: rani },
-    { id: 8, name: "Mr. Suresh Patil", subject: "Physics", img: d3 },
+    {
+      id: 3,
+      name: "Dr. Chandrasekhar Sankurathri",
+      subject: "Director",
+      img: d1,
+    },
+    {
+      id: 4,
+      name: "Dr. Chandrasekhar Sankurathri",
+      subject: "Director",
+      img: d2,
+    },
+    {
+      id: 5,
+      name: "Dr. Chandrasekhar Sankurathri",
+      subject: "Director",
+      img: d4,
+    },
+    {
+      id: 6,
+      name: "Dr. Chandrasekhar Sankurathri",
+      subject: "Director",
+      img: director,
+    },
+    { id: 7, name: "Ms. Rani Teacher", subject: "Social", img: rani },
+    {
+      id: 8,
+      name: "Dr. Chandrasekhar Sankurathri",
+      subject: "Director",
+      img: d3,
+    },
   ];
 
   const teacherChunks = [];
