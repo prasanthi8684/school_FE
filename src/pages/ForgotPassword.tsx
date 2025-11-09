@@ -10,7 +10,9 @@ import TextField from "../components/TextField"; // ⬅ Import here
 
 interface FormData {
   email: string;
+  userId?: string | null; // populated from localStorage (localStorage.getItem('userId'))
   password: string;
+  // userId will be taken from localStorage (e.g. localStorage.getItem('userId')) when submitting the form
   confirmPassword: string;
 }
 
@@ -52,7 +54,25 @@ const Login: React.FC = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    alert("form validated");
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/reset-password",
+        {
+          email: form.email,
+          password: form.password,
+        },
+        { headers: { "Content-Type": "application/json" } }
+      );
+
+      if (response.status === 200) {
+        toast.success(response.data?.message || "Password reset successful!");
+        setTimeout(() => navigate("/login"), 1500);
+      } else {
+        toast.error(response.data?.message || "Password reset failed.");
+      }
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || "API error occurred.");
+    }
 
     // try {
     //   const response = await axios.post(
@@ -131,7 +151,7 @@ const Login: React.FC = () => {
 
               <div className="text-center">
                 <Button type="submit" variant="primary" className="px-5">
-                  Login
+                  Password Reset
                 </Button>
               </div>
             </Form>
