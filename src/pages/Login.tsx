@@ -122,10 +122,10 @@ const Login: React.FC = () => {
             <p className="text-center mt-3 text-muted">
               Forgot password? <Link to="/forgotpassword">Click here</Link>
             </p>
-            <div className="text-center">
+            <p className="text-center text-muted">
               {" "}
               First time? <Link to="/register">Register here</Link>
-            </div>
+            </p>
           </Card>
         </Container>
       </div>

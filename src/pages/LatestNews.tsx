@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Row, Col } from "react-bootstrap";
-import alumni1 from "../images/alumni1.jpeg";
-import alumni2 from "../images/2.jpg";
+import alumni1 from "../images/31.jpg";
+import alumni2 from "../images/school.jpg";
 import alumni3 from "../images/alumni3.jpeg";
 
 const LatestNewsSection: React.FC = () => {
@@ -15,9 +15,9 @@ const LatestNewsSection: React.FC = () => {
     },
     {
       id: 2,
-      title: "New Alumni Directory Launched",
+      title: "New Alumni Website Launched",
       description:
-        "Our new online directory helps you reconnect easily with fellow alumni.",
+        "Our new online website helps you reconnect easily with fellow alumni.",
       img: alumni2,
     },
     {

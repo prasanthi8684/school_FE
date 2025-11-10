@@ -4,7 +4,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-dark text-white text-center py-3">
       <p className="mb-0">
-        &copy; {new Date().getFullYear()} Sarada Vidyalaya Alumni Network
+        &copy; {new Date().getFullYear()} Sarada Vidyalayam Alumni Network
       </p>
     </footer>
   );

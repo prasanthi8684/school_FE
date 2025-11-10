@@ -1,57 +1,83 @@
 import React from "react";
-import { Card, Row, Col } from "react-bootstrap";
+import "../assets/css/testimonials.css";
+import ramaganga from "../images/ramaganga.jpg";
+import jayanthi from "../images/jayanthi.jpg";
+import suresh from "../images/suresh.jpg";
+
+interface Testimonial {
+  name: string;
+  message: string;
+  role: string;
+  image: string;
+}
+
+const testimonials: Testimonial[] = [
+  {
+    name: "RamaGanga G.",
+    role: "Alumni, 2001 Batch",
+    message:
+      "My years at the school were truly memorable. The teachers were inspiring and supportive.",
+    image: ramaganga,
+  },
+  {
+    name: "jayanthi K.",
+    role: "Alumni, 2010 Batch",
+    message:
+      "The school gave me confidence and lifelong friends. I'm proud to be part of this family!",
+    image: jayanthi,
+  },
+  {
+    name: "Suresh B.",
+    role: "Alumni, 2005 Batch",
+    message:
+      "Wonderful experience! The cultural events and guidance shaped my career path.",
+    image: suresh,
+  },
+  {
+    name: "John Tan",
+    role: "Parent",
+    message:
+      "Excellent teachers and environment. My child loves going to school every day!",
+    image: "https://randomuser.me/api/portraits/men/67.jpg",
+  },
+  {
+    name: "John Tan",
+    role: "Parent",
+    message:
+      "Excellent teachers and environment. My child loves going to school every day!",
+    image: "https://randomuser.me/api/portraits/men/67.jpg",
+  },
+  {
+    name: "John Tan",
+    role: "Parent",
+    message:
+      "Excellent teachers and environment. My child loves going to school every day!",
+    image: "https://randomuser.me/api/portraits/men/67.jpg",
+  },
+  {
+    name: "John Tan",
+    role: "Parent",
+    message:
+      "Excellent teachers and environment. My child loves going to school every day!",
+    image: "https://randomuser.me/api/portraits/men/67.jpg",
+  },
+];
 
 const Testimonials: React.FC = () => {
-  const testimonials = [
-    {
-      id: 1,
-      name: "Ramaganga G",
-      text: "Studying at Sarada Vidyalayam shaped who I am today. The teachers were more than educators — they were mentors who guided me through every challenge. I’ll always be proud to call myself an alumnus of this wonderful school.",
-    },
-    {
-      id: 2,
-      name: "Renuka J",
-      text: "The friendships I built at Sarada Vidyalayam have lasted a lifetime. It’s amazing to see how the school continues to grow while keeping its strong values intact.",
-    },
-    {
-      id: 3,
-      name: "Suresh B",
-      text: "My years at Sarada Vidyalayam were truly unforgettable. The teachers inspired me to dream big, and the school’s emphasis on values, discipline, and teamwork helped shape my career and character. I owe much of my success today to the strong foundation I received here.",
-    },
-  ];
-
   return (
-    <section className="mb-5 px-3">
-      <h4 className="mb-4">Testimonials</h4>
-
-      <div
-        className="d-flex overflow-auto"
-        style={{ gap: "1rem", scrollSnapType: "x mandatory" }}
-      >
-        <Row>
-          {testimonials.map(({ id, name, text }) => (
-            <Col key={id} xs={12} md={4} className="mb-4">
-              <Card
-                key={id}
-                style={{
-                  minWidth: "250px",
-                  flex: "0 0 auto",
-                  scrollSnapAlign: "start",
-                }}
-                className="shadow-sm"
-              >
-                <Card.Body>
-                  <Card.Text>"{text}"</Card.Text>
-                  <Card.Subtitle className="text-muted mt-3">
-                    - {name}
-                  </Card.Subtitle>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
+    <div className="testimonial-container">
+      <h2 className="testimonial-title">What Our Alumni Say</h2>
+      <div className="testimonial-scroll">
+        {testimonials.map((t, index) => (
+          <div key={index} className="testimonial-card">
+            <img src={t.image} alt={t.name} className="testimonial-img" />
+            <p className="testimonial-message">“{t.message}”</p>
+            <h4 className="testimonial-name">{t.name}</h4>
+            <p className="testimonial-role">{t.role}</p>
+          </div>
+        ))}
       </div>
-    </section>
+    </div>
   );
 };
 

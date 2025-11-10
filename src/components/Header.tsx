@@ -1,32 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Nav, NavDropdown, Container, Image } from "react-bootstrap";
-import logo from "../assets/logo.png";
+import logo from "../images/logo.png";
+import "../assets/css/header.css";
 
 const Header: React.FC = () => {
   const userId = sessionStorage.getItem("userId");
   const username = sessionStorage.getItem("username");
+  const [expanded, setExpanded] = useState(false);
 
-  const logoUrl =
-    "https://www.srikiran.org/wp-content/uploads/2024/06/Srikiran-Logo-Horizontal-1400x465.png";
   return (
-    <Navbar bg="light" expand="lg" sticky="top">
+    <Navbar bg="light" expand="lg" sticky="top" expanded={expanded}>
       <Container>
         <Navbar.Brand as={Link} to="/">
-          <img src={logoUrl} alt="Logo" height="40" />
+          <img src={logo} alt="Logo" height="40" />
         </Navbar.Brand>
 
-        <Navbar.Toggle aria-controls="navbar-nav" />
-        <Navbar.Collapse id="navbar-nav" className="justify-content-between">
+        <Navbar.Toggle
+          aria-controls="navbar-nav"
+          onClick={() => setExpanded(expanded ? false : true)}
+        />
+
+        <Navbar.Collapse
+          id="navbar-nav"
+          className={`custom-collapse ${expanded ? "show" : ""}`}
+        >
           <Nav className="me-auto">
-            {/* <NavDropdown title="About" id="about-dropdown">
-              <NavDropdown.Item as={Link} to="/">
+            <NavDropdown title="About" id="about-dropdown">
+              <NavDropdown.Item
+                as="a"
+                href="https://saradavidyalayam.org/school-history/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 History
               </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/">
+              <NavDropdown.Item
+                as="a"
+                href="https://saradavidyalayam.org/#vission-mission-id"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Mission
               </NavDropdown.Item>
             </NavDropdown>
+
             <NavDropdown title="Events" id="events-dropdown">
               <NavDropdown.Item as={Link} to="/">
                 Upcoming
@@ -34,7 +52,8 @@ const Header: React.FC = () => {
               <NavDropdown.Item as={Link} to="/">
                 Past
               </NavDropdown.Item>
-            </NavDropdown> */}
+            </NavDropdown>
+
             <NavDropdown title="Members" id="members-dropdown">
               <NavDropdown.Item as={Link} to="/students">
                 Alumni List
@@ -43,12 +62,8 @@ const Header: React.FC = () => {
           </Nav>
 
           <Nav className="ms-auto align-items-center gap-2">
-            {userId ? <span>Hello</span> : <span>Hi</span>}
             <span className="text-secondary">
-              {(() => {
-                const username = sessionStorage.getItem("username");
-                return username ? ` ${username}` : "";
-              })()}
+              {username ? ` Hi, ${username}` : ""}
             </span>
             <NavDropdown
               align="end"
@@ -63,32 +78,18 @@ const Header: React.FC = () => {
               id="profile-dropdown"
               menuVariant="light"
             >
-              {userId ? (
-                <div></div>
-              ) : (
+              {!userId && (
                 <NavDropdown.Item as={Link} to="/login">
                   Login
                 </NavDropdown.Item>
               )}
-
               <NavDropdown.Item as={Link} to="/profile">
                 Profile
               </NavDropdown.Item>
               <NavDropdown.Item
                 onClick={() => {
-                  try {
-                    // remove stored auth/user info
-                    sessionStorage.removeItem("username");
-                    sessionStorage.removeItem("token");
-                    sessionStorage.removeItem("userId");
-                    // If you store other keys, remove them or use sessionStorage.clear()
-                  } catch (err) {
-                    console.warn("Error clearing sessionStorage", err);
-                  }
-                  // Redirect to login page
-                  if (typeof window !== "undefined") {
-                    window.location.href = "/login";
-                  }
+                  sessionStorage.clear();
+                  window.location.href = "/login";
                 }}
               >
                 Logout
