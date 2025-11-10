@@ -1,0 +1,64 @@
+/* Right-side slide-in effect for mobile menu */
+@media (max-width: 991px) {
+  .navbar-collapse.custom-collapse {
+    position: fixed;
+    top: 0;
+    right: -250px; /* Hidden initially */
+    width: 250px;
+    height: 100%;
+    background-color: #fff;
+    transition: right 0.3s ease-in-out;
+    padding: 1rem;
+    z-index: 1050;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .navbar-collapse.custom-collapse.show {
+    right: 0; /* Slide in from right */
+  }
+
+  .navbar-toggler {
+    z-index: 1100; /* keep toggle visible */
+  }
+
+  .navbar-collapse.custom-collapse .nav-link,
+  .navbar-collapse.custom-collapse .dropdown-item {
+    color: #000 !important;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+  }
+}
+.dropdown-menu-end[data-bs-popper] {
+  right: unset !important;
+  border: none !important;
+}
+
+@media (min-width: 992px) {
+  .navbar-expand-lg {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    background: #ae0924 !important;
+  }
+  .navbar-expand-lg .navbar-nav .nav-link {
+    color: #fff;
+  }
+}
+.bg-light {
+  background-color: #ae0924 !important;
+}
+
+@media (max-width: 991px) {
+  .navbar-toggler {
+    background: #fff !important;
+  }
+  .navbar-toggler: focus {
+    box-shadow: none !important;
+  }
+}
+.navbar-nav .dropdown-menu {
+  position: static;
+  border: none !important;
+}
+.align-items-center {
+  align-items: start !important;
+}
