@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { Form, Button, Row, Col, Card, Container } from "react-bootstrap";
 import axios from "axios";
@@ -114,7 +115,9 @@ const Profile: React.FC = () => {
       );
       if (response.status === 200) {
         toast.success("Profile updated!");
+        sessionStorage.setItem("username", form.displayName.trim());
         setTimeout(() => navigate("/home"), 2000);
+        window.location.href = "/home";
       } else {
         toast.error("Profile update failed.");
       }
@@ -172,7 +175,6 @@ const Profile: React.FC = () => {
               </Row>
 
               <Row>
-               
                 <Col md={6}>
                   <Form.Group className="mb-3">
                     <Form.Label>Working Field</Form.Label>

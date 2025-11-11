@@ -181,7 +181,7 @@ const Register: React.FC = () => {
               <Row>
                 <Col md={6}>
                   <SelectField
-                    label="Passout Year"
+                    label="Passout Batch"
                     name="passoutYear"
                     value={form.passoutYear}
                     onChange={handleChange}
@@ -266,7 +266,7 @@ const Register: React.FC = () => {
                   />
                 </Col>
               </Row>
-              <div className="text-center">
+              <div className="text-center" style={{ marginTop: "20px" }}>
                 <Button type="submit" variant="primary" className="px-5">
                   Register
                 </Button>

@@ -1,24 +1,27 @@
-/* Right-side slide-in effect for mobile menu */
 @media (max-width: 991px) {
   .navbar-collapse.custom-collapse {
     position: fixed;
     top: 0;
-    right: -250px; /* Hidden initially */
+    right: -250px;
     width: 250px;
     height: 100%;
     background-color: #fff;
-    transition: right 0.3s ease-in-out;
+    transition: right 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 0;
     padding: 1rem;
     z-index: 1050;
     box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
   }
 
+  /* Slide-in animation */
   .navbar-collapse.custom-collapse.show {
-    right: 0; /* Slide in from right */
+    right: 0;
+    opacity: 1;
   }
 
   .navbar-toggler {
-    z-index: 1100; /* keep toggle visible */
+    z-index: 1100;
   }
 
   .navbar-collapse.custom-collapse .nav-link,
@@ -27,22 +30,34 @@
     font-size: 1rem;
     padding: 0.5rem 0;
   }
+
+  /* Optional: close menu after clicking a link (you already handle in TS) */
+  .navbar-collapse.custom-collapse .nav-link,
+  .navbar-collapse.custom-collapse .dropdown-item {
+    cursor: pointer;
+  }
 }
+
+/* Fix dropdown alignment on right side */
 .dropdown-menu-end[data-bs-popper] {
   right: unset !important;
   border: none !important;
 }
 
+/* Desktop view styling */
 @media (min-width: 992px) {
   .navbar-expand-lg {
     flex-wrap: nowrap;
     justify-content: flex-start;
     background: #ae0924 !important;
   }
+
   .navbar-expand-lg .navbar-nav .nav-link {
     color: #fff;
   }
 }
+
+/* Global color overrides */
 .bg-light {
   background-color: #ae0924 !important;
 }
@@ -51,14 +66,19 @@
   .navbar-toggler {
     background: #fff !important;
   }
-  .navbar-toggler: focus {
+
+  .navbar-toggler:focus {
     box-shadow: none !important;
   }
 }
+
+/* Remove dropdown borders */
 .navbar-nav .dropdown-menu {
   position: static;
   border: none !important;
 }
+
+/* Proper alignment for profile section */
 .align-items-center {
   align-items: start !important;
 }

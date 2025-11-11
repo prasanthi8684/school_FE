@@ -3,6 +3,8 @@ import "../assets/css/testimonials.css";
 import ramaganga from "../images/ramaganga.jpg";
 import jayanthi from "../images/jayanthi.jpg";
 import suresh from "../images/suresh.jpg";
+import renuka from "../images/renuka.jpg";
+import revathi from "../images/revathi.jpg";
 
 interface Testimonial {
   name: string;
@@ -34,39 +36,39 @@ const testimonials: Testimonial[] = [
     image: suresh,
   },
   {
-    name: "John Tan",
-    role: "Parent",
+    name: "Renuka J.",
+    role: "Alumni, 2005 Batch",
     message:
       "Excellent teachers and environment. My child loves going to school every day!",
-    image: "https://randomuser.me/api/portraits/men/67.jpg",
+    image: renuka,
   },
   {
-    name: "John Tan",
-    role: "Parent",
+    name: "Revathi G.",
+    role: "Alumni, 2008 Batch",
     message:
       "Excellent teachers and environment. My child loves going to school every day!",
-    image: "https://randomuser.me/api/portraits/men/67.jpg",
+    image: revathi,
   },
-  {
-    name: "John Tan",
-    role: "Parent",
-    message:
-      "Excellent teachers and environment. My child loves going to school every day!",
-    image: "https://randomuser.me/api/portraits/men/67.jpg",
-  },
-  {
-    name: "John Tan",
-    role: "Parent",
-    message:
-      "Excellent teachers and environment. My child loves going to school every day!",
-    image: "https://randomuser.me/api/portraits/men/67.jpg",
-  },
+  // {
+  //   name: "John Tan",
+  //   role: "Parent",
+  //   message:
+  //     "Excellent teachers and environment. My child loves going to school every day!",
+  //   image: "https://randomuser.me/api/portraits/men/67.jpg",
+  // },
+  // {
+  //   name: "John Tan",
+  //   role: "Parent",
+  //   message:
+  //     "Excellent teachers and environment. My child loves going to school every day!",
+  //   image: "https://randomuser.me/api/portraits/men/67.jpg",
+  // },
 ];
 
 const Testimonials: React.FC = () => {
   return (
     <div className="testimonial-container">
-      <h2 className="testimonial-title">What Our Alumni Say</h2>
+      <h2 className="testimonial-title">Voices of Our Alumni</h2>
       <div className="testimonial-scroll">
         {testimonials.map((t, index) => (
           <div key={index} className="testimonial-card">

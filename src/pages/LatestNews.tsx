@@ -10,21 +10,21 @@ const LatestNewsSection: React.FC = () => {
       id: 1,
       title: "Sarada Vidyalayam Alumni Meet 2025",
       description:
-        "Join us this year for the alumni meet on 20th Dec at the school auditorium.",
+        "Join us on 20th December 2025 at the school auditorium to reconnect, reminisce, and celebrate our shared journey.",
       img: alumni1,
     },
     {
       id: 2,
-      title: "New Alumni Website Launched",
+      title: "Welcome to Our New Alumni Portal!",
       description:
-        "Our new online website helps you reconnect easily with fellow alumni.",
+        "Reconnect, network, and relive our school memories with fellow alumni — all in one place.",
       img: alumni2,
     },
     {
       id: 3,
-      title: "Charity Event Success",
+      title: "Warm & Grateful",
       description:
-        "Thanks to all who participated in the charity fundraiser last month.",
+        "We are excited to meet our beloved Director sir, who has always supported us in our education and guided us.",
       img: alumni3,
     },
   ];
