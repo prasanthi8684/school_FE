@@ -8,7 +8,6 @@ import { X } from "lucide-react";
 
 interface FormData {
   displayName: string;
-  married: string;
   contactNumber: string;
   workingField: string;
   village: string;
@@ -19,7 +18,6 @@ const Profile: React.FC = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState<FormData>({
     displayName: "",
-    married: "",
     contactNumber: "",
     workingField: "",
     village: "",
@@ -31,8 +29,6 @@ const Profile: React.FC = () => {
       try {
         // read user id from sessionStorage (supports either a raw id stored under "userId"
         // or a JSON "user" object that contains an id/userId field)
-        console.log("Fetching profile...");
-        console.log(sessionStorage.getItem("userId"));
         const userId = sessionStorage.getItem("userId");
 
         if (!userId) {
@@ -44,10 +40,8 @@ const Profile: React.FC = () => {
         const { data } = await axios.get(
           `http://134.209.159.74:3000/api/profile/${encodeURIComponent(userId)}`
         );
-        console.log("Profile data:", data.user.workingField);
         setForm({
           displayName: data?.user?.fullName ?? "",
-          married: data?.user?.married ?? "",
           contactNumber: data?.user?.contactNumber ?? "",
           workingField: data?.user?.workingField ?? "",
           village: data?.user?.village ?? "",
@@ -83,7 +77,6 @@ const Profile: React.FC = () => {
     if (!form.fullAddress.trim())
       newErrors.fullAddress = "Full address is required";
     if (!form.workingField) newErrors.workingField = "Please select";
-    if (!form.married) newErrors.married = "Please select";
     if (!form.village) newErrors.village = "Please select";
 
     setErrors(newErrors);
@@ -179,24 +172,7 @@ const Profile: React.FC = () => {
               </Row>
 
               <Row>
-                <Col md={6}>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Married</Form.Label>
-                    <Form.Select
-                      name="married"
-                      value={form.married}
-                      onChange={handleChange}
-                      isInvalid={!!errors.married}
-                    >
-                      <option value="">Please select</option>
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
-                    </Form.Select>
-                    <Form.Control.Feedback type="invalid">
-                      {errors.married}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
+               
                 <Col md={6}>
                   <Form.Group className="mb-3">
                     <Form.Label>Working Field</Form.Label>
