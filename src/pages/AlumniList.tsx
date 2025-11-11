@@ -57,7 +57,7 @@ export const AlumniList: React.FC = () => {
     gender: "",
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 10;
+  const rowsPerPage = 300;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,7 +67,7 @@ export const AlumniList: React.FC = () => {
     fetchData();
   }, []);
 
-  const handleSearch = (value: string) => setSearch(value);
+  //const handleSearch = (value: string) => setSearch(value);
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
@@ -173,7 +173,7 @@ export const AlumniList: React.FC = () => {
             onChange={handleFilterChange}
             value={filters.passoutYear}
           >
-            <option value="">All Years</option>
+            <option value="">All Batches</option>
             <option>2023</option>
             <option>2022</option>
             <option>2021</option>
@@ -231,6 +231,7 @@ export const AlumniList: React.FC = () => {
       <Table striped bordered hover responsive>
         <thead>
           <tr>
+            <th>S. No</th>
             <th>Name</th>
             <th>Contact Number</th>
             <th>Email</th>
@@ -241,6 +242,7 @@ export const AlumniList: React.FC = () => {
         <tbody>
           {paginatedData.map((item, index) => (
             <tr key={index}>
+              <td>{index + 1}</td>
               <td>{item.name}</td>
               <td>{item.contactNumber}</td>
               <td>{item.email}</td>

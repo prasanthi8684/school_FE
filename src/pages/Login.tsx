@@ -64,6 +64,7 @@ const Login: React.FC = () => {
           // axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
         }
         setTimeout(() => navigate("/home"), 2000);
+        window.location.href = "/home";
       } else {
         toast.error("Login failed.");
       }
@@ -112,7 +113,7 @@ const Login: React.FC = () => {
                 </Col>
               </Row>
 
-              <div className="text-center">
+              <div className="text-center" style={{ marginTop: "20px" }}>
                 <Button type="submit" variant="primary" className="px-5">
                   Login
                 </Button>
