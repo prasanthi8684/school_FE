@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Nav, NavDropdown, Container, Image } from "react-bootstrap";
 import logo from "../images/logo.png";
-import "../assets/css/header.css";
+//import "../assets/css/header.css";
 
 const Header: React.FC = () => {
   const userId = sessionStorage.getItem("userId");
