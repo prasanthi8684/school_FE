@@ -189,8 +189,8 @@ const Profile: React.FC = () => {
                       isInvalid={!!errors.married}
                     >
                       <option value="">Please select</option>
-                      <option value="studying">Yes</option>
-                      <option value="studying">No</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
                     </Form.Select>
                     <Form.Control.Feedback type="invalid">
                       {errors.married}
