@@ -4,7 +4,7 @@ import { Form, Button, Row, Col, Card, Container } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
 import TextField from "../components/TextField"; // ⬅ Import here
 
@@ -52,32 +52,25 @@ const Login: React.FC = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    alert("form validated");
+    try {
+      const response = await axios.post(
+        "http://134.209.159.74:3000/api/forgotpassword",
+        form,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      if (response.status === 200) {
+        toast.success("Login successful!");
+        console.log(response);
 
-    // try {
-    //   const response = await axios.post(
-    //     "http://134.209.159.74:3000/api/login",
-    //     form,
-    //     {
-    //       headers: { "Content-Type": "application/json" },
-    //     }
-    //   );
-    //   if (response.status === 200) {
-    //     toast.success("Login successful!");
-    //     console.log(response.data.user);
-    //     if (response.data?.token) {
-    //       sessionStorage.setItem("token", response.data.token);
-    //       sessionStorage.setItem("userId", response.data.user.id);
-    //       sessionStorage.setItem("username", response.data.user.fullName);
-    //       sessionStorage.setItem("user", JSON.stringify(response.data.user));
-    //     }
-    //     setTimeout(() => navigate("/"), 2000);
-    //   } else {
-    //     toast.error("Login failed.");
-    //   }
-    // } catch (error: any) {
-    //   toast.error(error?.response?.data?.message || "API error occurred.");
-    // }
+        setTimeout(() => navigate("/"), 2000);
+      } else {
+        toast.error("Login failed.");
+      }
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || "API error occurred.");
+    }
   };
 
   return (
