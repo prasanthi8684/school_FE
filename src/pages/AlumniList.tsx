@@ -99,7 +99,7 @@ export const AlumniList: React.FC = () => {
         <Col md={3}>
           <InputGroup>
             <FormControl
-              placeholder="Search by Name, Email, Village, Gender or Year"
+              placeholder="Search by Name"
               value={search}
               onChange={(e) => {
                 const v = e.target.value;
@@ -116,14 +116,20 @@ export const AlumniList: React.FC = () => {
 
                 // detect gender
                 if (lower === "male" || lower === "female") {
-                  setFilters((prev) => ({ ...prev, gender: lower[0].toUpperCase() + lower.slice(1) }));
+                  setFilters((prev) => ({
+                    ...prev,
+                    gender: lower[0].toUpperCase() + lower.slice(1),
+                  }));
                   return;
                 }
 
                 // detect year like 2020 or 1999
                 const yearMatch = v.match(/\b(19|20)\d{2}\b/);
                 if (yearMatch) {
-                  setFilters((prev) => ({ ...prev, passoutYear: yearMatch[0] }));
+                  setFilters((prev) => ({
+                    ...prev,
+                    passoutYear: yearMatch[0],
+                  }));
                   return;
                 }
 
@@ -136,8 +142,10 @@ export const AlumniList: React.FC = () => {
                   "Rayudupalem",
                   "Thammavaram",
                 ];
-                const matchedVillage = villages.find((vi) =>
-                  vi.toLowerCase().includes(lower) || lower.includes(vi.toLowerCase())
+                const matchedVillage = villages.find(
+                  (vi) =>
+                    vi.toLowerCase().includes(lower) ||
+                    lower.includes(vi.toLowerCase())
                 );
                 if (matchedVillage) {
                   setFilters((prev) => ({ ...prev, village: matchedVillage }));
@@ -201,13 +209,11 @@ export const AlumniList: React.FC = () => {
           >
             <option value="">All Villages</option>
             <option value="Bharma Colony">Bharma Colony</option>
-           <option value="Kakinada">Kakinada</option>
-<option value="Kotturu">Kotturu</option>
-<option value="Penumarti">Penumarti</option>
-<option value="Rayudupalem">Rayudupalem</option>
-<option value="Thammavaram">Thammavaram</option>
- 
-
+            <option value="Kakinada">Kakinada</option>
+            <option value="Kotturu">Kotturu</option>
+            <option value="Penumarti">Penumarti</option>
+            <option value="Rayudupalem">Rayudupalem</option>
+            <option value="Thammavaram">Thammavaram</option>
           </Form.Select>
         </Col>
         <Col md={3}>

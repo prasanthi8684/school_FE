@@ -73,10 +73,7 @@ const Login: React.FC = () => {
     } catch (error: any) {
       toast.error(error?.response?.data?.message || "API error occurred.");
     }
-
-        setTimeout(() => navigate("/"), 2000);
-  
-    
+    setTimeout(() => navigate("/home"), 2000);
   };
 
   return (
@@ -87,7 +84,7 @@ const Login: React.FC = () => {
             <X
               size={20}
               className="position-absolute top-0 end-0 m-3 cursor-pointer"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/home")}
               style={{ cursor: "pointer" }}
             />
             <h2 className="text-center mb-4">Forgot Password</h2>

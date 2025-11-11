@@ -120,10 +120,10 @@ const Profile: React.FC = () => {
         form
       );
       if (response.status === 200) {
-        toast.success("Registration successful!");
+        toast.success("Profile updated!");
         setTimeout(() => navigate("/home"), 2000);
       } else {
-        toast.error("Registration failed.");
+        toast.error("Profile update failed.");
       }
     } catch (error: any) {
       toast.error(error?.response?.data?.message || "API error occurred.");
@@ -138,7 +138,7 @@ const Profile: React.FC = () => {
             <X
               size={20}
               className="position-absolute top-0 end-0 m-3 cursor-pointer"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/home")}
               style={{ cursor: "pointer" }}
             />
             <h2 className="text-center mb-4">Profile</h2>
@@ -206,15 +206,15 @@ const Profile: React.FC = () => {
                       onChange={handleChange}
                       isInvalid={!!errors.workingField}
                     >
-                     <option value="">Please select working field</option>
+                      <option value="">Please select working field</option>
                       <option value="Business">Business</option>
                       <option value="Govt Job">Govt Job</option>
                       <option value="Job Search">Job Search</option>
                       <option value="Farming">Farming</option>
                       <option value="Own work">Own work</option>
                       <option value="Private Job">Private Job</option>
-                       <option value="Studying">Studying</option>
-                       <option value="Others">Others</option>
+                      <option value="Studying">Studying</option>
+                      <option value="Others">Others</option>
                     </Form.Select>
                     <Form.Control.Feedback type="invalid">
                       {errors.workingField}

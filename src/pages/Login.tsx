@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, Link } from "react-router-dom";
 import { X } from "lucide-react";
-import TextField from "../components/TextField"; // ⬅ Import here
+import TextField from "../components/TextField";
 
 interface FormData {
   email: string;
@@ -63,8 +63,7 @@ const Login: React.FC = () => {
           sessionStorage.setItem("user", JSON.stringify(response.data.user));
           // axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
         }
-        // navigate to home/dashboard after successful login
-        setTimeout(() => navigate("/"), 2000);
+        setTimeout(() => navigate("/home"), 2000);
       } else {
         toast.error("Login failed.");
       }
@@ -81,7 +80,7 @@ const Login: React.FC = () => {
             <X
               size={20}
               className="position-absolute top-0 end-0 m-3 cursor-pointer"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/home")}
               style={{ cursor: "pointer" }}
             />
             <h2 className="text-center mb-4">Login</h2>

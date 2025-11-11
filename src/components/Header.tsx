@@ -83,17 +83,21 @@ const Header: React.FC = () => {
                   Login
                 </NavDropdown.Item>
               )}
-              <NavDropdown.Item as={Link} to="/profile">
-                Profile
-              </NavDropdown.Item>
-              <NavDropdown.Item
-                onClick={() => {
-                  sessionStorage.clear();
-                  window.location.href = "/login";
-                }}
-              >
-                Logout
-              </NavDropdown.Item>
+              {userId && (
+                <NavDropdown.Item as={Link} to="/profile">
+                  Profile
+                </NavDropdown.Item>
+              )}
+              {userId && (
+                <NavDropdown.Item
+                  onClick={() => {
+                    sessionStorage.clear();
+                    window.location.href = "/login";
+                  }}
+                >
+                  Logout
+                </NavDropdown.Item>
+              )}
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

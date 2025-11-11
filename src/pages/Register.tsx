@@ -101,7 +101,7 @@ const Register: React.FC = () => {
             <X
               size={20}
               className="position-absolute top-0 end-0 m-3 cursor-pointer"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/home")}
               style={{ cursor: "pointer" }}
             />
             <h2 className="text-center mb-4">Register</h2>
