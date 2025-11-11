@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button, Row, Col, Card, Container } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
 
 interface FormData {
   displayName: string;
-  married: string;
   contactNumber: string;
   workingField: string;
   village: string;
@@ -19,20 +18,17 @@ const Profile: React.FC = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState<FormData>({
     displayName: "",
-    married: "",
     contactNumber: "",
     workingField: "",
     village: "",
     fullAddress: "",
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchProfile = async () => {
       try {
         // read user id from sessionStorage (supports either a raw id stored under "userId"
         // or a JSON "user" object that contains an id/userId field)
-        console.log("Fetching profile...");
-        console.log(sessionStorage.getItem("userId"));
         const userId = sessionStorage.getItem("userId");
 
         if (!userId) {
@@ -45,8 +41,7 @@ const Profile: React.FC = () => {
           `http://134.209.159.74:3000/api/profile/${encodeURIComponent(userId)}`
         );
         setForm({
-          displayName: data?.user?.displayName ?? "",
-          married: data?.user?.married ?? "",
+          displayName: data?.user?.fullName ?? "",
           contactNumber: data?.user?.contactNumber ?? "",
           workingField: data?.user?.workingField ?? "",
           village: data?.user?.village ?? "",
@@ -82,7 +77,6 @@ const Profile: React.FC = () => {
     if (!form.fullAddress.trim())
       newErrors.fullAddress = "Full address is required";
     if (!form.workingField) newErrors.workingField = "Please select";
-    if (!form.married) newErrors.married = "Please select";
     if (!form.village) newErrors.village = "Please select";
 
     setErrors(newErrors);
@@ -119,10 +113,10 @@ const Profile: React.FC = () => {
         form
       );
       if (response.status === 200) {
-        toast.success("Registration successful!");
+        toast.success("Profile updated!");
         setTimeout(() => navigate("/home"), 2000);
       } else {
-        toast.error("Registration failed.");
+        toast.error("Profile update failed.");
       }
     } catch (error: any) {
       toast.error(error?.response?.data?.message || "API error occurred.");
@@ -137,7 +131,7 @@ const Profile: React.FC = () => {
             <X
               size={20}
               className="position-absolute top-0 end-0 m-3 cursor-pointer"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/home")}
               style={{ cursor: "pointer" }}
             />
             <h2 className="text-center mb-4">Profile</h2>
@@ -178,24 +172,7 @@ const Profile: React.FC = () => {
               </Row>
 
               <Row>
-                <Col md={6}>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Married</Form.Label>
-                    <Form.Select
-                      name="married"
-                      value={form.married}
-                      onChange={handleChange}
-                      isInvalid={!!errors.married}
-                    >
-                      <option value="">Please select</option>
-                      <option value="studying">Yes</option>
-                      <option value="studying">No</option>
-                    </Form.Select>
-                    <Form.Control.Feedback type="invalid">
-                      {errors.married}
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
+               
                 <Col md={6}>
                   <Form.Group className="mb-3">
                     <Form.Label>Working Field</Form.Label>
@@ -205,14 +182,15 @@ const Profile: React.FC = () => {
                       onChange={handleChange}
                       isInvalid={!!errors.workingField}
                     >
-                      <option value="">Please select</option>
-                      <option value="studying">Business</option>
-                      <option value="studying">Studying</option>
-                      <option value="jobSearch">Job Search</option>
-                      <option value="farming">Farming</option>
-                      <option value="privateJob">Private Job</option>
-                      <option value="govtJob">Govt Job</option>
-                      <option value="govtJob">Others</option>
+                      <option value="">Please select working field</option>
+                      <option value="Business">Business</option>
+                      <option value="Govt Job">Govt Job</option>
+                      <option value="Job Search">Job Search</option>
+                      <option value="Farming">Farming</option>
+                      <option value="Own work">Own work</option>
+                      <option value="Private Job">Private Job</option>
+                      <option value="Studying">Studying</option>
+                      <option value="Others">Others</option>
                     </Form.Select>
                     <Form.Control.Feedback type="invalid">
                       {errors.workingField}

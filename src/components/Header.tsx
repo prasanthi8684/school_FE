@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Nav, NavDropdown, Container, Image } from "react-bootstrap";
 import logo from "../images/logo.png";
-import "../assets/css/header.css";
+//import "../assets/css/header.css";
 
 const Header: React.FC = () => {
   const userId = sessionStorage.getItem("userId");
@@ -83,17 +83,21 @@ const Header: React.FC = () => {
                   Login
                 </NavDropdown.Item>
               )}
-              <NavDropdown.Item as={Link} to="/profile">
-                Profile
-              </NavDropdown.Item>
-              <NavDropdown.Item
-                onClick={() => {
-                  sessionStorage.clear();
-                  window.location.href = "/login";
-                }}
-              >
-                Logout
-              </NavDropdown.Item>
+              {userId && (
+                <NavDropdown.Item as={Link} to="/profile">
+                  Profile
+                </NavDropdown.Item>
+              )}
+              {userId && (
+                <NavDropdown.Item
+                  onClick={() => {
+                    sessionStorage.clear();
+                    window.location.href = "/login";
+                  }}
+                >
+                  Logout
+                </NavDropdown.Item>
+              )}
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

@@ -7,6 +7,7 @@ import {
   Pagination,
   InputGroup,
   FormControl,
+  Button,
 } from "react-bootstrap";
 import axios from "axios";
 
@@ -38,7 +39,7 @@ const dummyApi = async (): Promise<Alumni[]> => {
       email: u.email ?? "",
       passoutYear: u.passoutYear ?? u.graduationYear ?? "",
       village: u.village ?? u.town ?? "",
-      address: u.address ?? "",
+      address: u.fullAddress ?? "",
       gender: u.gender ?? "",
     }));
   } catch (error) {
@@ -98,10 +99,72 @@ export const AlumniList: React.FC = () => {
         <Col md={3}>
           <InputGroup>
             <FormControl
-              placeholder="Search by Name or Email"
+              placeholder="Search by Name"
               value={search}
-              onChange={(e) => handleSearch(e.target.value)}
+              onChange={(e) => {
+                const v = e.target.value;
+                setSearch(v);
+                setCurrentPage(1);
+
+                // clear inferred filters when input empty
+                if (!v.trim()) {
+                  setFilters({ village: "", passoutYear: "", gender: "" });
+                  return;
+                }
+
+                const lower = v.trim().toLowerCase();
+
+                // detect gender
+                if (lower === "male" || lower === "female") {
+                  setFilters((prev) => ({
+                    ...prev,
+                    gender: lower[0].toUpperCase() + lower.slice(1),
+                  }));
+                  return;
+                }
+
+                // detect year like 2020 or 1999
+                const yearMatch = v.match(/\b(19|20)\d{2}\b/);
+                if (yearMatch) {
+                  setFilters((prev) => ({
+                    ...prev,
+                    passoutYear: yearMatch[0],
+                  }));
+                  return;
+                }
+
+                // detect village from known list (case-insensitive, partial match)
+                const villages = [
+                  "Bharma Colony",
+                  "Kakinada",
+                  "Kotturu",
+                  "Penumarti",
+                  "Rayudupalem",
+                  "Thammavaram",
+                ];
+                const matchedVillage = villages.find(
+                  (vi) =>
+                    vi.toLowerCase().includes(lower) ||
+                    lower.includes(vi.toLowerCase())
+                );
+                if (matchedVillage) {
+                  setFilters((prev) => ({ ...prev, village: matchedVillage }));
+                  return;
+                }
+
+                // otherwise don't change explicit filters (search will match name/email/village/etc in filter logic)
+              }}
             />
+            <Button
+              variant="outline-secondary"
+              onClick={() => {
+                setSearch("");
+                setFilters({ village: "", passoutYear: "", gender: "" });
+                setCurrentPage(1);
+              }}
+            >
+              Clear
+            </Button>
           </InputGroup>
         </Col>
         <Col md={3}>
@@ -145,12 +208,12 @@ export const AlumniList: React.FC = () => {
             value={filters.village}
           >
             <option value="">All Villages</option>
-            <option>Bharma Colony</option>
-            <option>Kakinada</option>
-            <option>Kotturu</option>
-            <option>Penumarti</option>
-            <option>Rayudupalem</option>
-            <option>Thammavaram</option>
+            <option value="Bharma Colony">Bharma Colony</option>
+            <option value="Kakinada">Kakinada</option>
+            <option value="Kotturu">Kotturu</option>
+            <option value="Penumarti">Penumarti</option>
+            <option value="Rayudupalem">Rayudupalem</option>
+            <option value="Thammavaram">Thammavaram</option>
           </Form.Select>
         </Col>
         <Col md={3}>

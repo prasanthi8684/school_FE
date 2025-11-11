@@ -4,13 +4,15 @@ import { Form, Button, Row, Col, Card, Container } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
 import TextField from "../components/TextField"; // ⬅ Import here
 
 interface FormData {
   email: string;
+  userId?: string | null; // populated from localStorage (localStorage.getItem('userId'))
   password: string;
+  // userId will be taken from localStorage (e.g. localStorage.getItem('userId')) when submitting the form
   confirmPassword: string;
 }
 
@@ -52,32 +54,26 @@ const Login: React.FC = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    alert("form validated");
+    try {
+      const response = await axios.post(
+        "http://134.209.159.74:3000/api/reset-password",
+        {
+          email: form.email,
+          password: form.password,
+        },
+        { headers: { "Content-Type": "application/json" } }
+      );
 
-    // try {
-    //   const response = await axios.post(
-    //     "http://134.209.159.74:3000/api/login",
-    //     form,
-    //     {
-    //       headers: { "Content-Type": "application/json" },
-    //     }
-    //   );
-    //   if (response.status === 200) {
-    //     toast.success("Login successful!");
-    //     console.log(response.data.user);
-    //     if (response.data?.token) {
-    //       sessionStorage.setItem("token", response.data.token);
-    //       sessionStorage.setItem("userId", response.data.user.id);
-    //       sessionStorage.setItem("username", response.data.user.fullName);
-    //       sessionStorage.setItem("user", JSON.stringify(response.data.user));
-    //     }
-    //     setTimeout(() => navigate("/"), 2000);
-    //   } else {
-    //     toast.error("Login failed.");
-    //   }
-    // } catch (error: any) {
-    //   toast.error(error?.response?.data?.message || "API error occurred.");
-    // }
+      if (response.status === 200) {
+        toast.success(response.data?.message || "Password reset successful!");
+        setTimeout(() => navigate("/login"), 1500);
+      } else {
+        toast.error(response.data?.message || "Password reset failed.");
+      }
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || "API error occurred.");
+    }
+    setTimeout(() => navigate("/home"), 2000);
   };
 
   return (
@@ -88,7 +84,7 @@ const Login: React.FC = () => {
             <X
               size={20}
               className="position-absolute top-0 end-0 m-3 cursor-pointer"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/home")}
               style={{ cursor: "pointer" }}
             />
             <h2 className="text-center mb-4">Forgot Password</h2>
@@ -131,7 +127,7 @@ const Login: React.FC = () => {
 
               <div className="text-center">
                 <Button type="submit" variant="primary" className="px-5">
-                  Login
+                  Password Reset
                 </Button>
               </div>
             </Form>
